@@ -15,12 +15,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "USER")
 @Getter
 @Builder
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends Common {
 

@@ -23,17 +23,15 @@ public class SecurityjwtWorkApplication {
 	public CommandLineRunner sampleJPACommandLineRunner(UserRepository repository) {
 		return (args) -> {
 			// save a user
-			repository.save(new User("admin", "admin123", UserRole.ROLE_ADMIN));
-			repository.save(new User("user", "user123", UserRole.ROLE_USER));
-			repository.save(new User("guest", "guest123", UserRole.ROLE_USER));
+			repository.save(new User("admin@example.com", "admin123", UserRole.ROLE_ADMIN));
+			repository.save(new User("user@example.com", "user123", UserRole.ROLE_USER));
+			repository.save(new User("guest@example.com", "guest123", UserRole.ROLE_USER));
 
 			// fetch all user
-			log.info("user found with findAll()---------------");
+			log.info("-------- user found with findAll()-------");
 			for (User user : repository.findAll()) {
 				log.info(user.toString());
 			}
-			log.info("-------------------------------");
-	
 		};
 	}
 }
