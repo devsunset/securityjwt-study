@@ -45,20 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    /*  spring security & h2-consle use setting 
-        http
-        .authorizeRequests()
-          .antMatchers("/h2-console/**").permitAll()
-          .and()
-        .csrf()
-          .ignoringAntMatchers("/h2-console/**")
-          .and()
-        .headers()
-          .frameOptions()
-            .disable();
-
-    */
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
