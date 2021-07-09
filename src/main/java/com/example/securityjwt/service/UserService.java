@@ -23,8 +23,11 @@ public class UserService {
 
     @Transactional
     public User signUp(final SignUp signUpDTO) {
-        final User user = User.builder().email(signUpDTO.getEmail()).pw(passwordEncoder.encode(signUpDTO.getPw()))
-                .role(UserRole.ROLE_USER).build();
+        final User user = User.builder()
+                            .email(signUpDTO.getEmail())
+                            .pw(passwordEncoder.encode(signUpDTO.getPw()))
+                            .role(UserRole.ROLE_USER)
+                            .build();
 
         return userRepository.save(user);
     }

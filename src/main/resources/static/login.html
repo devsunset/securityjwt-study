@@ -1,18 +1,65 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html>
+    <head></head>
 
-<head>
-    <title>securityjwt-work</title>
-</head>
+    <body>
+        <h1>Spring Security + JWT Example </h1>
 
-<body>
-    <form action="" method="post">
-        <div><label> User Name : <input type="text" name="username" placeholder="user" value="user" /> </label></div>
-        <div><label> Password &nbsp;&nbsp;&nbsp;: <input type="password" name="password" placeholder="password"
-                    value="password" /> </label></div>
-        <div><input type="submit" value="Sign In" /></div>
-    </form>
-</body>
+        <li> STEP
+            <ol>1. User Search button click</ol>
+            <ol>2. Sign In button click</ol>
+            <ol>3. User Search button click</ol>
+        </li>
 
+        <h1>======================================</h1>
+
+        <button onclick="onButtonUserSearchClicked()">User Search</button>
+        <h2 id="userList"></h2>
+
+        <h1>======================================</h1>
+         ID :<input type="text" id="email" name="email" value="admin@example.com"/>
+         &nbsp;
+         PW :<input type="password" id="pw" name="pw" value="admin123"/>
+         &nbsp;
+        <button onclick="onButtonSignInClicked()">Sign In</button>
+
+    </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        function onButtonUserSearchClicked()
+        {
+          axios({
+            method: 'get',
+            url: '/user/list', 
+            data: {}      
+          })
+            .then(response=>{
+                document.getElementById('userList').innerText=response.data;
+                console.log(response);
+            })
+            .catch(error=>{
+                document.getElementById('userList').innerText=error;
+                console.log(error);
+            })
+        }
+
+        function onButtonSignInClicked(){
+            const email = document.getElementById("email");
+            const pw = document.getElementById('pw')
+            axios({
+                method:"POST",
+                url: '/user/signup',
+                data:{
+                    "email": email.value,
+                    "pw": pw.value
+                }
+            }).then((res)=>{
+                console.log(res);
+                alert(res);
+            }).catch(error=>{
+                console.log(error);
+                alert(error);
+            });
+        }
+    </script>
 </html>
