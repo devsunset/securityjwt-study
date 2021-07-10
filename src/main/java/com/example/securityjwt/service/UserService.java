@@ -22,10 +22,10 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public User signUp(final SignUp signUpDTO) {
+    public User signUp(final SignUp signUp) {
         final User user = User.builder()
-                            .email(signUpDTO.getEmail())
-                            .pw(passwordEncoder.encode(signUpDTO.getPw()))
+                            .email(signUp.getEmail())
+                            .pw(passwordEncoder.encode(signUp.getPw()))
                             .role(UserRole.ROLE_USER)
                             .build();
 

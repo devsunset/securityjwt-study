@@ -22,9 +22,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<String> signUp(@RequestBody final SignUp signUpDTO) {
-        return userService.isEmailDuplicated(signUpDTO.getEmail()) ? ResponseEntity.badRequest().build()
-                : ResponseEntity.ok(JwtTokenUtil.generateJwtToken(userService.signUp(signUpDTO)));
+    public ResponseEntity<String> signUp(@RequestBody final SignUp signUp) {
+        return userService.isEmailDuplicated(signUp.getEmail()) ? ResponseEntity.badRequest().build()
+                : ResponseEntity.ok(JwtTokenUtil.generateJwtToken(userService.signUp(signUp)));
     }
 
     @GetMapping(value = "/list")
