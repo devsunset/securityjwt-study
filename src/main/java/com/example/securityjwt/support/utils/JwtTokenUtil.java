@@ -56,7 +56,11 @@ public final class JwtTokenUtil {
     }
 
     public static String getTokenFromHeader(String header) {
-        return header.split(" ")[1];
+        if(header.split(" ").length > 1){
+            return header.split(" ")[1]; 
+        }else{
+            return "jwt_tocken_invalid";
+        }
     }
 
     private static Date createExpireDateForOneYear() {

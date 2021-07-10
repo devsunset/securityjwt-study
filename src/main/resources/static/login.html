@@ -8,6 +8,8 @@
             <ol>1. User Search button click</ol>
             <ol>2. Sign In button click</ol>
             <ol>3. User Search button click</ol>
+            <ol>4. Log out button click</ol>
+            <ol>5. User Search button click</ol>
         </li>
 
         <h1>======================================</h1>
@@ -16,25 +18,35 @@
         <h2 id="userList"></h2>
 
         <h1>======================================</h1>
+
          ID :<input type="text" id="email" name="email" value="admin@example.com"/>
          &nbsp;
          PW :<input type="password" id="pw" name="pw" value="admin123"/>
          &nbsp;
         <button onclick="onButtonSignInClicked()">Sign In</button>
 
+        <h1>======================================</h1>
+
+        <button onclick="onButtonLogoutClicked()">Log out</button>
+
     </body>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
-        function onButtonUserSearchClicked()
-        {
+        function onButtonUserSearchClicked(){
+          alert('Authorization: ' + localStorage.getItem('authorization'));
+          
+          let token = localStorage.getItem('authorization')
+          // axios.defaults.headers.post['Authorization'] = 'token' // for POST requests
+          axios.defaults.headers.common['Authorization'] = token // for all requests
+
           axios({
             method: 'get',
             url: '/user/list', 
             data: {}      
           })
             .then(response=>{
-                document.getElementById('userList').innerText=response.data;
+                document.getElementById('userList').innerText=JSON.stringify(response.data);
                 console.log(response);
             })
             .catch(error=>{
@@ -48,18 +60,25 @@
             const pw = document.getElementById('pw')
             axios({
                 method:"POST",
-                url: '/user/signup',
+                url: '/user/login',
                 data:{
                     "email": email.value,
                     "pw": pw.value
                 }
             }).then((res)=>{
                 console.log(res);
-                alert(res);
+                alert(JSON.stringify(res));
+                alert('Authorization: ' + res.headers['authorization'])
+                localStorage.setItem('authorization', res.headers['authorization'])
             }).catch(error=>{
                 console.log(error);
                 alert(error);
             });
+        }
+
+        function onButtonLogoutClicked(){
+          localStorage.setItem('authorization',null);
+          alert('Log out -> Authorization: ' + localStorage.getItem('authorization'));
         }
     </script>
 </html>
