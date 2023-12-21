@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JwtTokenUtil {
 
-    private static final String secretKey = "securityjwt-work";
+    private static final String secretKey = "securityjwt-study";
 
     public static String generateJwtToken(User user) {
         JwtBuilder builder = Jwts.builder().setSubject(user.getEmail()).setHeader(createHeader())
